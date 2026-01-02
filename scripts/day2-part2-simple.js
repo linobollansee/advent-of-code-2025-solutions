@@ -1,0 +1,61 @@
+﻿const fs = require("fs");
+
+// Simple version - check if a number is made of some sequence repeated at least twice
+function isRepeatedAtLeastTwice(num) {
+  const str = num.toString();
+  const len = str.length;
+
+  for (let patternLen = 1; patternLen <= len / 2; patternLen++) {
+    if (len % patternLen !== 0) continue;
+
+    const pattern = str.substring(0, patternLen);
+    let isValid = true;
+
+    for (let i = patternLen; i < len; i += patternLen) {
+      if (str.substring(i, i + patternLen) !== pattern) {
+        isValid = false;
+        break;
+      }
+    }
+
+    if (isValid) return true;
+  }
+
+  return false;
+}
+
+function solvePart2(input) {
+  const ranges = input.split(",").filter((r) => r.trim());
+  let sum = 0;
+
+  for (const range of ranges) {
+    const [start, end] = range.trim().split("-").map(Number);
+
+    for (let id = start; id <= end; id++) {
+      if (isRepeatedAtLeastTwice(id)) {
+        sum += id;
+      }
+    }
+  }
+
+  return sum;
+}
+
+const input = fs.readFileSync("../inputs/day-2-input.txt", "utf-8").trim();
+
+const iterations = 1;
+const startTime = process.hrtime.bigint();
+
+let result;
+for (let i = 0; i < iterations; i++) {
+  result = solvePart2(input);
+}
+
+const endTime = process.hrtime.bigint();
+const totalNanos = Number(endTime - startTime);
+const avgMicros = (totalNanos / iterations / 1000).toFixed(3);
+
+console.log(`JavaScript (Day 2 Part 2 - Simple)`);
+console.log(`Answer: ${result}`);
+console.log(`Average time: ${avgMicros} microseconds (${iterations} iterations)`);
+console.log(`Total time: ${(totalNanos / 1000000).toFixed(2)} ms`);
