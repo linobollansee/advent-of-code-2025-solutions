@@ -63,20 +63,25 @@ Depending on which language implementations you want to run:
 # Compile (if needed)
 g++ scripts/day1-part1-simple.cpp -o build/day1-part1-simple.exe
 
-# Run
-.\build\day1-part1-simple.exe
+# Run (from build directory)
+cd build
+.\day1-part1-simple.exe
 ```
 
 **JavaScript:**
 
 ```powershell
-node scripts/day1-part1-simple.js
+# Run from scripts directory
+cd scripts
+node day1-part1-simple.js
 ```
 
 **Python:**
 
 ```powershell
-python scripts/day1-part1-simple.py
+# Run from scripts directory
+cd scripts
+python day1-part1-simple.py
 ```
 
 ## 💡 Solution Variants
